@@ -4,17 +4,23 @@ while True:
     def logo_do_jogo():
      print("\n\033[1;31;40mX----------\033[m#_JOGO_DA_VELHA_#\033[1;34;40m----------O\033[m\n\n")
 
-    logo_do_jogo()
     # Menu de seleção de jogador
     jogadores = ["\033[1;31mX\033[m","\033[1;34mO\033[m"]
     turno = 0
-    primeiro_jogador = str(input("Escolha 'X' ou 'O' para iniciar o jogo: ")).upper()
-    while primeiro_jogador != "X" and primeiro_jogador != "O":  
-        primeiro_jogador = str(input("Digite uma escolha válida: ")).upper()
-    if primeiro_jogador == "O":
-        turno = 1
+    menu = int(input('''MENU\n\n[1] INICIAR O JOGO\n[2]SAIR DO PROGRAMA\nO que você deseja?  '''))
+    while menu != 1 and menu != 2:
+        menu = int(input("Digite uma opção válida: "))
+    if menu == 1:
+        primeiro_jogador = str(input("Escolha 'X' ou 'O' para iniciar o jogo: ")).upper()
+        while primeiro_jogador != "X" and primeiro_jogador != "O":  
+            primeiro_jogador = str(input("Digite uma escolha válida: ")).upper()
+        if primeiro_jogador == "O":
+            turno = 1
+        else:
+            turno = 0   
     else:
-        turno = 0      
+        print("JOGO ENCERRADO!")
+        exit()
 
     # Matriz preenchida para ilustrar as jogadas
     demonstração = [[7,8,9],[4,5,6],[1,2,3]]
@@ -90,10 +96,12 @@ while True:
             turno = (turno + 1) % 2
         vencedor = checar_vencedor()
         if vencedor is not None:
+            os.system('cls' if os.name == 'nt' else 'clear')
             imprimir_matriz()
             print(f"O jogador {vencedor} venceu!")
             break
         elif " " not in [matriz[i][j] for i in range(3) for j in range(3)]:
+            os.system('cls' if os.name == 'nt' else 'clear')
             imprimir_matriz()
             print("Deu Velha !!!")
             break
